@@ -8,8 +8,51 @@ Discord: https://discord.gg/r6dC2uK
 ]]
 --Please Only Edit Below This Line-----------------------------------------------------------
 
-local ore_prob = {['stone']=0.02,['iron-ore']=0.07,['copper-ore']=0.12,['coal']=0.14,['crude-oil']=0.15,['uranium-ore']=0.151,['tree-02']=0.25,['water']=0.35,['base']=0.60}
-local tile_prob ={['out-of-map']=0.05,['dirt']=0.20,['grass']=0.65,['sand']=0.75,['red-desert']=0.78,['water-green']=0.80,['deepwater']=1.00}
+local ore_prob = {
+    ['stone'] = 0.02,
+    ['iron-ore'] = 0.07,
+    ['copper-ore'] = 0.12,
+    ['coal'] = 0.14,
+    ['crude-oil'] = 0.15,
+    ['uranium-ore'] = 0.151,
+    ['tree-02'] = 0.35,
+    ['water'] = 0.45,
+    ['base'] = 0.70
+}
+
+local tile_prob ={
+    ['out-of-map'] = 0.05,
+    ['dirt'] = 0.20,
+    ['grass'] = 0.65,
+    ['sand'] = 0.75,
+    ['red-desert'] = 0.78,
+    ['water-green'] = 0.80,
+    ['deepwater'] = 1.00
+}
+
+-- valid range of probability for starting hex tile type
+-- dirt, grass, sand, red-desert allowed for staring resources, randomly assigned
+local starting_hex_tile_prob = {0.05, 0.78} 
+
+-- where to place the starting_resources
+-- randomly chosen, the ones not chosen will be assigned according normal probabilites
+local starting_hexs = {
+    -- first circle around spawn tile
+    "-16-16", "16-48", "80-16", "8048", "1680", "-1648",
+    -- second circle around spawn tile
+    "-80-48","-16-80","-8016","-16112","80-80","80112","112-48","11216","11280","-8080",
+}
+-- which ore types to place in starting_hexs
+local starting_resources = {
+    "stone",
+    "coal",
+    "iron-ore",
+    "copper-ore",
+    'water',
+    "tree-02",
+    "tree-02",
+    "tree-02",
+}
 
 local hexs = {
     middle_ore = {
@@ -156,6 +199,24 @@ local hexs = {
     },
 }
 
+local function assign_starting_resources()
+    if global.initialized then
+        return
+    end
+    
+    for _,resource in ipairs(starting_resources) do
+		-- choose random starting hex
+        local index = math.random( #starting_hexs )
+        local hex_name = starting_hexs[index]
+        table.remove(starting_hexs, index)
+        global.hexs[hex_name] = global.hexs[hex_name] or {}
+        global.hexs[hex_name].tile = starting_hex_tile_prob[1] + (math.random() * (starting_hex_tile_prob[2]-starting_hex_tile_prob[1]))
+        global.hexs[hex_name].ore = ore_prob[resource]
+    end
+    -- only do it once
+    global.initialized = true
+end
+
 local function make_borders(surface,hex_type,center,inverter)
     local tiles = {}
     for _,tile in pairs(hexs[hex_type..'tiles']) do
@@ -248,7 +309,7 @@ local function make_tiles(surface,hex_name,center,area,inverter)
         global.hexs[hex_name].tile = 0.6 --always start on grass.
     end
     for item,chance in pairs(tile_prob) do
-        if global.hexs[hex_name].tile < chance then
+        if global.hexs[hex_name].tile <= chance then
             local tiles = {}
             if area.left_top then
                 for x = area.left_top.x, area.right_bottom.x-1 do
@@ -281,7 +342,7 @@ local function make_ore(surface,hex_name,area)
     for item,chance in pairs(ore_prob) do
         if hex_name == '1616' then
             break
-        elseif global.hexs[hex_name].ore < chance then
+        elseif global.hexs[hex_name].ore <= chance then
             if item == 'water' then
                 local tiles = {}
                 for _,entity in ipairs(ores) do 
@@ -355,6 +416,8 @@ Event.register(defines.events.on_chunk_generated,function(event)
         inverter.x = -1
         inverter.ox =-1
     end
+	
+	assign_starting_resources()
 	
 	-- work out replace stone area
     local area_one, area_two = get_hex_areas(hex_type,center,inverter)
