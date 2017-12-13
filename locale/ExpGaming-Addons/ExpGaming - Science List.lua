@@ -29,9 +29,9 @@ end
 ExpGui.add_frame.left('science_list','item/lab',{'science-gui.tooltip'},false,function(player,frame)
 	frame.caption = {'science-gui.name'}
 	-- table setup
-	frame.add{name='total_title',type='label',caption={'science-gui.total'},style="caption_label_style"}
+	frame.add{name='total_title',type='label',caption={'science-gui.total'},style="caption_label"}
 	frame.add{name='total_flow',type='flow',direction='vertical'}
-	frame.add{name='minute_title',type='label',caption={'science-gui.minute'},style="caption_label_style"}
+	frame.add{name='minute_title',type='label',caption={'science-gui.minute'},style="caption_label"}
 	frame.add{name='minute_flow',type='flow',direction='vertical'}
 	-- adds all the science packs
 	for n,pack in pairs(global.science_packs) do

@@ -20,7 +20,7 @@ end)
 ExpGui.add_frame.tab('commands',{'readme-gui.command-name'},{'readme-gui.command-tooltip'},'readme',function(player,frame)
     frame.add{name='intro', type="label", caption={'readme-gui.command-caption'}, single_line=false}.style.maximal_width=480
 	-- table setup
-	frame.add{name='command_table',type='table',colspan=2}
+	frame.add{name='command_table',type='table',column_count=2}
 	frame.command_table.add{name='command_title',type='label',caption={'readme-gui.command-command'}}
 	frame.command_table.add{name='help_title',type='label',caption={'readme-gui.command-help'}}
 	-- adds all commands which this player can use

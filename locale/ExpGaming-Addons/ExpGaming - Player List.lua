@@ -44,8 +44,8 @@ ExpGui.add_frame.left('player_list','entity/player',{'player-list.tooltip'},true
 			local rank_colour = rank.colour
 			for _,p in pairs(players) do
 				local play_time = tick_to_display_format(p.online_time)
-				if rank_short_hand ~= '' then player_list.add{type = "label",  name=p.name, style="caption_label_style", caption={'player-list.format',play_time,p.name,rank_short_hand}}
-				else player_list.add{type = "label",  name=p.name, style="caption_label_style", caption=play_time.." - "..p.name} end
+				if rank_short_hand ~= '' then player_list.add{type = "label",  name=p.name, style="caption_label", caption={'player-list.format',play_time,p.name,rank_short_hand}}
+				else player_list.add{type = "label",  name=p.name, style="caption_label", caption=play_time.." - "..p.name} end
 				player_list[p.name].style.font_color = rank_colour
 			end
 		end

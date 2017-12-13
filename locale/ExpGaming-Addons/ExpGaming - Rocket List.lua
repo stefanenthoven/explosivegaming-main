@@ -16,7 +16,7 @@ ExpGui.add_frame.left('rocket_list','item/rocket-silo',{'rocket-gui.tooltip'},ni
 	frame.add{name='rockets',type='label',caption={'rocket-gui.send',rockets_send}}
 	frame.add{name='time_per',type='label',caption={'rocket-gui.time',rocket_time}}
 	-- milestones
-	frame.add{name='milestones_title',type='label',caption={'rocket-gui.milestones'},style="caption_label_style"}
+	frame.add{name='milestones_title',type='label',caption={'rocket-gui.milestones'},style="caption_label"}
 	local milestones = frame.add{name='milestones',type='flow',direction='vertical'}
 	for _,milestone in pairs(get_milestones_times()) do
 		-- check if a new mile stone is reached
