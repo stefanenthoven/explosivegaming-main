@@ -27,12 +27,12 @@ function(player,frame)
 	frame.style.maximal_width = 600
 	local text_box = frame.add{name='input',type='text-box'}
 	text_box.text = 'Enter Message To Send'
-	text_box.read_only = false
-	text_box.word_wrap = true
-	text_box.selectable = true
 	text_box.style.maximal_width = 400
 	text_box.style.minimal_width = 400
 	text_box.style.minimal_height = 100
+	text_box.read_only = false
+	text_box.word_wrap = true
+	text_box.selectable = true
 	local flow = frame.add{name='flow',type='flow',direction='horizontal'}
 	ExpGui.add_input.draw_button(flow,'send_message','Send')
 	flow.add{name='label',type='label',caption={'announcements.send-to-ranks'},style="caption_label"}
