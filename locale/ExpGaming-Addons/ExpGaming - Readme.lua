@@ -24,7 +24,9 @@ ExpGui.add_frame.tab('commands',{'readme-gui.command-name'},{'readme-gui.command
 	-- table setup
 	frame.add{name='command_table',type='table',column_count=2}
 	frame.command_table.add{name='command_title',type='label',caption={'readme-gui.command-command'}}
-	frame.command_table.add{name='help_title',type='label',caption={'readme-gui.command-help'}}
+    frame.command_table.add{name='help_title',type='label',caption={'readme-gui.command-help'}}
+    frame.command_table.draw_vertical_lines = true
+    frame.command_table.draw_horizontal_line_after_headers = true
 	-- adds all commands which this player can use
     for n,command in pairs(get_commands(ranking.get_player_rank(player).name)) do
         frame.command_table.add{name='command_'..n,type='label',caption='/'..command.name}
