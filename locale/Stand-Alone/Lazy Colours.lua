@@ -23,4 +23,5 @@ Event.register(defines.events.on_player_created, function(event)
 	if colours[player.name] then
 		player.color = colours[player.name]
 	end
+	player.chat_color = player.color
 end)
