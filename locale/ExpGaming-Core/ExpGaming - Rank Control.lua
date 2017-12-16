@@ -54,19 +54,21 @@ function ranking.rank_print(msg, rank, inv)
 	local rank = ranking.string_to_rank(rank) or ranking.string_to_rank_group('Moderation').lowest_rank -- default mod or higher
 	local inv = inv or false
 	debug_write({'RANK','PRINT'},rank.name..': '..tostring(msg))
-	for _, player in pairs(game.players) do
-		--this part uses sudo to soread it other many ticks
-		local player_rank_power = ranking.get_player_rank(player).power
-		if inv then
-			server.queue_callback(function(player_rank_power,rank)
-				if player_rank_power >= rank.power then player.print({'ranking.all-rank-print',msg}) end
-			end,{player_rank_power,rank})
-		else
-			server.queue_callback(function(player_rank_power,rank)
-				if player_rank_power <= rank.power then
-					if rank.short_hand ~= '' then player.print{'ranking.rank-print',rank.short_hand,msg} else player.print{'ranking.all-rank-print',msg} end 
-				end
-			end,{player_rank_power,rank})
+	for _, player in pairs(game.connected_players) do
+		if player.valid then
+			--this part uses sudo to soread it other many ticks
+			local player_rank_power = ranking.get_player_rank(player).power
+			if inv then
+				server.queue_callback(function(player_rank_power,rank,player)
+					if player_rank_power >= rank.power then player.print({'ranking.all-rank-print',msg}) end
+				end,{player_rank_power,rank,player})
+			else
+				server.queue_callback(function(player_rank_power,rank,player)
+					if player_rank_power <= rank.power then
+						if rank.short_hand ~= '' then player.print{'ranking.rank-print',rank.short_hand,msg} else player.print{'ranking.all-rank-print',msg} end 
+					end
+				end,{player_rank_power,rank,player})
+			end
 		end
 	end
 end
