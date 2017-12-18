@@ -60,10 +60,12 @@ function ranking.rank_print(msg, rank, inv)
 			local player_rank_power = ranking.get_player_rank(player).power
 			if inv then
 				server.queue_callback(function(player_rank_power,rank,player)
+					if not player_rank_power or not rank or not player then return end
 					if player_rank_power >= rank.power then player.print({'ranking.all-rank-print',msg}) end
 				end,{player_rank_power,rank,player})
 			else
 				server.queue_callback(function(player_rank_power,rank,player)
+					if not player_rank_power or not rank or not player then return end
 					if player_rank_power <= rank.power then
 						if rank.short_hand ~= '' then player.print{'ranking.rank-print',rank.short_hand,msg} else player.print{'ranking.all-rank-print',msg} end 
 					end
