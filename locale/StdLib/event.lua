@@ -106,7 +106,9 @@ function Event.dispatch(event)
                             error(err) -- no players received the message, force a real error so someone notices
                         end
                     else
-                        error(err) -- no way to handle errors cleanly when the game is not up
+                        log('SCRIPT ERROR')
+                        log(err)
+                        --error(err) -- no way to handle errors cleanly when the game is not up
                     end
                     -- continue processing the remaning handlers. In most cases they won't be related to the failed code.
                 end
