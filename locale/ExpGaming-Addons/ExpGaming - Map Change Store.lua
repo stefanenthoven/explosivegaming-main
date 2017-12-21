@@ -37,7 +37,7 @@ local function fullscreen(cam,state)
 end
 
 local function draw_entity(event)
-    if not event.entity.last_user or event.entity.name == 'entity-ghost' then return end
+    if not event.entity.last_user or event.entity.name == 'entity-ghost' or event.entity.name == 'tile-ghost' then return end
     local entity = event.entity
     local player = game.players[event.player_index]
     local surface = global.map_store.surface
@@ -46,10 +46,8 @@ local function draw_entity(event)
         surface.create_entity(entity).last_user = player
     else
         for _,destroy in pairs(surface.find_entities_filtered{position=entity.position}) do destroy.destroy() end
-        local entity = surface.create_entity(entity)
-        if entity then
-            entity.last_user = player
-            entity.active = false
+        if surface.can_place_entity(entity) then
+            surface.create_entity(entity).last_user = player
         end
     end
 end
