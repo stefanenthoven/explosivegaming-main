@@ -22,16 +22,16 @@ local ore_prob = {
 
 local tile_prob ={
     ['out-of-map'] = 0.05,
-    ['dirt'] = 0.20,
-    ['grass'] = 0.65,
-    ['sand'] = 0.75,
+    ['dirt-3'] = 0.20,
+    ['grass-1'] = 0.65,
+    ['sand-1'] = 0.75,
     ['red-desert'] = 0.78,
     ['water-green'] = 0.80,
     ['deepwater'] = 1.00
 }
 
 -- valid range of probability for starting hex tile type
--- dirt, grass, sand, red-desert allowed for staring resources, randomly assigned
+-- dirt-3, grass-1, sand-1, red-desert allowed for staring resources, randomly assigned
 local starting_hex_tile_prob = {0.05, 0.78} 
 
 -- where to place the starting_resources
@@ -306,7 +306,7 @@ local function make_tiles(surface,hex_name,center,area,inverter)
     global.hexs[hex_name] = global.hexs[hex_name] or {}
     global.hexs[hex_name].tile = global.hexs[hex_name].tile or math.random()
     if hex_name == '1616' then
-        global.hexs[hex_name].tile = 0.6 --always start on grass.
+        global.hexs[hex_name].tile = 0.6 --always start on grass-1.
     end
     for item,chance in pairs(tile_prob) do
         if global.hexs[hex_name].tile <= chance then
