@@ -35,7 +35,7 @@ function(player,frame)
 	text_box.style.minimal_height = 100
 	local flow = frame.add{name='flow',type='flow',direction='horizontal'}
 	ExpGui.add_input.draw_button(flow,'send_message','Send')
-	flow.add{name='label',type='label',caption={'announcements.send-to-ranks'},style="caption_label_style"}
+	flow.add{name='label',type='label',caption={'announcements.send-to-ranks'},style="caption_label"}
 	local drop_down = flow.add{name='drop_down',type='drop-down'}
 	for n,rank_name in pairs(ranking.get_ranks('name')) do drop_down.add_item(rank_name) if rank_name == 'Guest' then drop_down.selected_index = n end end
 end,
@@ -44,7 +44,7 @@ function(player,frame,args)
 	local from_rank = nil; if args[1] == '<server>' then from_rank='<server>' else from_rank = ranking.get_player_rank(args[1]).name end
 	local to_rank = nil; if args[2].name == 'Guest' then to_rank = 'Everyone' else to_rank = args[2].name..'s' end
 	if ranking.get_player_rank(player).power > args[2].power then frame.parent.destroy() else
-		frame.add{name='label',type='label',caption={'announcements.message',from_rank,to_rank},style="caption_label_style"}
+		frame.add{name='label',type='label',caption={'announcements.message',from_rank,to_rank},style="caption_label"}
 		local text_box = frame.add{name='message',type='text-box'}
 		text_box.text = args[3]
 		text_box.read_only = true

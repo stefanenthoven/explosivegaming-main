@@ -19,7 +19,7 @@ ExpGui.add_input.button('give_rank',{'ingame-rank-changer.button-give-rank'},{'i
 end)
 
 ExpGui.add_frame.center('rank_changer',{'ingame-rank-changer.name'},{'ingame-rank-changer.tooltip'},{},function(player,frame)
-	frame.add{name='label',type='label',caption={'ingame-rank-changer.info-caption'},style="caption_label_style"}
+	frame.add{name='label',type='label',caption={'ingame-rank-changer.info-caption'},style="caption_label"}
 	local player_rank_power = ranking.get_player_rank(player).power
 	local inputs = frame.add{name='input_table',type='table',colspan=2}
 	-- player drop down

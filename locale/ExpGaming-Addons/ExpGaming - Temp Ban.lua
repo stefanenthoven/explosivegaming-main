@@ -38,7 +38,7 @@ end)
 
 ExpGui.add_frame.popup('temp_ban',{'temp-ban.name'},{'temp-ban.tooltip'},nil,function(player,frame,args)
     if player == args[3] then
-        frame.add{name='title',type='label',caption={'temp-ban.title'},style="caption_label_style"}
+        frame.add{name='title',type='label',caption={'temp-ban.title'},style="caption_label"}
         frame.add{name='info',type='label',caption={'temp-ban.info'}}
         frame.add{name='by_player',type='label',caption={'temp-ban.by-player',args[1]}}
         frame.add{name='reason',type='label',caption={'temp-ban.reason',args[2]}}
