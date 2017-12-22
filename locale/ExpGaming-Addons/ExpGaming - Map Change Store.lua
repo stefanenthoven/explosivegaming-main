@@ -41,13 +41,13 @@ local function draw_entity(event)
     local entity = event.entity
     local player = game.players[event.player_index]
     local surface = global.map_store.surface
-    local entity = {name=entity.name,position=entity.position,direction=entity.direction,force=player.force}
-    if surface.can_place_entity(entity) then
-        surface.create_entity(entity).last_user = player
+    local _entity = {name=entity.name,position=entity.position,direction=entity.direction,force=player.force}
+    if surface.can_place_entity(_entity) then
+        surface.create_entity(_entity).last_user = player
     else
-        for _,destroy in pairs(surface.find_entities_filtered{position=entity.position}) do destroy.destroy() end
-        if surface.can_place_entity(entity) then
-            surface.create_entity(entity).last_user = player
+        for _,destroy in pairs(surface.find_entities_filtered{position=_entity.position}) do destroy.destroy() end
+        if surface.can_place_entity(_entity) then
+            surface.create_entity(_entity).last_user = player
         end
     end
 end
@@ -63,7 +63,7 @@ local function draw_ghosts(cam)
     for _,entity in pairs(ghosts) do
         if entity.name ~= 'player' then
             local entity_name = entity.name == 'entity-ghost' and entity.ghost_name or entity.name
-            local ghost = {name='entity-ghost',position=entity.position,inner_name=entity_name,direction=entity.direction,force=player.force}
+            local ghost = {name='entity-ghost',position=entity.position,ghost_name=entity_name,direction=entity.direction,force=player.force}
             if surface.can_place_entity(ghost) then
                 surface.create_entity(ghost).time_to_live = 59
             end
