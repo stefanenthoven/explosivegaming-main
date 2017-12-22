@@ -25,7 +25,7 @@ local tile_prob ={
     ['dirt-3'] = 0.20,
     ['grass-1'] = 0.65,
     ['sand-1'] = 0.75,
-    ['red-desert'] = 0.78,
+    ['red-desert-0'] = 0.78,
     ['water-green'] = 0.80,
     ['deepwater'] = 1.00
 }
