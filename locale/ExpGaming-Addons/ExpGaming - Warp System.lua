@@ -55,7 +55,7 @@ ExpGui.add_frame.left('warp-points',('item/'..warp_item),{'warp-point.tooltip'},
     frame.caption = {'warp-point.name'}
     local warp_list = frame.add{name="scroll",type = "scroll-pane", direction = "vertical", vertical_scroll_policy="always", horizontal_scroll_policy="never"}
     warp_list.style.maximal_height = 100
-    local table = warp_list.add{name="table",type='table',colspan=2}
+    local table = warp_list.add{name="table",type='table',column_count=2}
     for name,warp in pairs(global.warp.warps) do
         if not warp.tag or not warp.tag.valid then warp.tag = player.force.add_chart_tag(warp.surface,{position=warp.position,text='Warp: '..name,icon={type='item',name=warp_item}}) end
         table.add{name='warp_'..name,style="caption_label",type='label',caption=name}

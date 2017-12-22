@@ -9,7 +9,7 @@ Discord: https://discord.gg/r6dC2uK
 --Please Only Edit Below This Line-----------------------------------------------------------
 local function draw_standard(player,frame)
 	frame.clear()
-	local table = frame.add{type='table',name='task_table',colspan=2}
+	local table = frame.add{type='table',name='task_table',column_count=2}
 	for n,task in pairs(get_tasks()) do
 		table.add{type='label',name=n..'_number',caption=n..'.'}
 		table.add{type='label',name=n..'_task',caption=task}
@@ -19,7 +19,7 @@ end
 
 local function draw_edit_mode(player,frame)
 	frame.clear()
-	local table = frame.add{type='table',name='task_table',colspan=3}
+	local table = frame.add{type='table',name='task_table',column_count=3}
 	for n,task in pairs(global.tasks.players[player.index]) do
 		table.add{type='label',name=n..'_number',caption=n..'.'}
 		table.add{type='text-box',name=n..'_task',text=task}.style.minimal_width=250

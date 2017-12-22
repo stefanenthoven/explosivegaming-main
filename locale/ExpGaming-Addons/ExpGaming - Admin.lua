@@ -49,7 +49,7 @@ end
 
 ExpGui.add_frame.tab('force_modifiers',{'admin-gui.tab-force-modifiers'},{'admin-gui.tab-force-modifiers-tooltip'},'admin',function(player,frame)
     frame.add{type = 'flow', name= 'flow',direction = 'horizontal'}
-    local table = frame.add{name='modifiers_table', type='table', colspan=#states+1}
+    local table = frame.add{name='modifiers_table', type='table', column_count=#states+1}
     table.add{name='force_modifier_name', type='label', caption={'admin-gui.modifier-name-capion'}}
 	for _,state in pairs(states) do table.add{name='x'..state, type='label', caption='x'..state} end
     for _,modifier in pairs(force_modifiers) do add_moddifier(table,modifier[1][1],player.force,false) end
@@ -57,7 +57,7 @@ end)
 
 ExpGui.add_frame.tab('player_modifiers',{'admin-gui.tab-player-modifiers'},{'admin-gui.tab-player-modifiers-tooltip'},'admin',function(player,frame)
     frame.add{type = 'flow', name= 'flow',direction = 'horizontal'}
-    local table = frame.add{name='modifiers_table', type='table', colspan=#states+1}
+    local table = frame.add{name='modifiers_table', type='table', column_count=#states+1}
     table.add{name='player_modifier_name', type='label', caption={'admin-gui.modifier-name-capion'}}
     for _,state in pairs(states) do table.add{name='x'..state, type='label', caption='x'..state} end
     for _,modifier in pairs(player_modifiers) do add_moddifier(table,modifier[1][1],player,true) end
